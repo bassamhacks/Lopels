@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Text, View,Image,TouchableHighlight } from 'react-native';
-import { Container, Header, Card, CardItem,Content, Body, Left,Right, Button, Icon} from 'native-base';
+import { Text, View,Image } from 'react-native';
+import { Container, Card, CardItem,Content, Body, Left, Icon} from 'native-base';
 import {material} from 'react-native-typography';
 export default class Shops extends Component {
   render() {

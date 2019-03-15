@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { Text,StatusBar,Image} from 'react-native';
-import { Container, Header, Left, Title,Tab, Tabs, TabHeading, Body, Right, Card, CardItem,Button,Icon} from 'native-base';
-import { Col, Row, Grid } from 'react-native-easy-grid';
-import LinearGradient from 'react-native-linear-gradient';
+import { Container, Header, Left,Tab, Tabs, TabHeading, Body, Right,Button,Icon} from 'native-base';
+import { Row, Grid } from 'react-native-easy-grid';
 import {robotoWeights} from 'react-native-typography';
 import Carousel from 'react-native-smart-carousel';
 import kv from '../../assets/Keventers1.jpg';
@@ -10,7 +9,9 @@ import manjeri from '../../assets/manjeri.jpg';
 import naturals from '../../assets/naturals.jpg';
 import seematti from '../../assets/seematti.jpg';
 import Shops from '../Shops';
-
+import Wallet from '../Wallet';
+import MyQR from '../MyQR';
+import QRScanner from '../QRScanner';
 const datacarousel = [
   {
       "id": 339964,
@@ -62,13 +63,13 @@ export default class Home extends Component {
             <Shops />
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>My Wallet </Text><Icon name="folder-open" /></TabHeading>}>
-            
+            <Wallet />
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>My QR </Text><Icon name="contract" /></TabHeading>}>
-            
+            <MyQR />
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>Scan QR</Text><Icon name="qr-scanner" /></TabHeading>}>
-            
+            <QRScanner />
           </Tab>
         </Tabs>
             </Row>
