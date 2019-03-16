@@ -6,46 +6,49 @@ export default class HomeActivity extends Component {
     super(props);
 
     this.state = {
-      GridListItems: [
-        { key: "Skptricks" },
-        { key: "Sumit" },
-        { key: "Amit" },
-        { key: "React" },
-        { key: "React Native" },
-        { key: "Java" },
-        { key: "Javascript" },
-        { key: "PHP" },
-        { key: "AJAX" },
-        { key: "Android" },
-        { key: "Selenium" },
-        { key: "HTML" },
-        { key: "Database" },
-        { key: "MYSQL" },
-        { key: "SQLLite" },
-        { key: "Web Technology" },
-        { key: "CSS" },
-        { key: "Python" },
-        { key: "Linux" },
-        { key: "Kotlin" },
-      ]
+      GridListItems: null,
+      globallopels: null,
+      locallopels: null
     };
   }
 
-  GetGridViewItem(item) {
-    Alert.alert(item);
+  componentDidMount(){
+    return fetch('http://gitzberry.com/kkk/wallet.php?mobileno='+'9447100043'+'&t=t')
+    .then((response) => response.json())
+    .then((responseJson) => {
+      this.setState({globallopels:responseJson.globallopels, locallopels:responseJson.locallopels});
+      this.nextAPI();
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+    
+  }
+
+  nextAPI(){
+    return fetch('http://gitzberry.com/kkk/wallet.php?mobileno='+'9447100043'+'&t=l')
+    .then((response) => response.json())
+    .then((response) => {
+      this.setState({GridListItems:response.all});
+    })
+    .catch((error) => {
+      console.error(error);
+    });
   }
 
   render() {
      return (
        <View style={styles.container}>
 
-        <Text style={material.title}>Global Wallet Balance: Rs.1500 </Text>
-        <Text style={material.title}>Local Wallet Balances: </Text>
+        <Text style={material.title}>Global Wallet Balance: Rs.{this.state.globallopels} </Text>
+        <Text style={material.title}>Local Wallet Balance: Rs.{this.state.locallopels} </Text>
          <FlatList
             data={ this.state.GridListItems }
+            keyExtractor={(item)  => item.sid}
             renderItem={ ({item}) =>
               <View style={styles.GridViewContainer}>
-               <Text style={styles.GridViewTextLayout} onPress={this.GetGridViewItem.bind(this, item.key)} > {item.key} </Text>
+               <Text style={styles.GridViewTextLayout} > {item.shopname} </Text>
+               <Text style={material.body2White} > Rs.{item.locallopels} </Text>
               </View> }
             numColumns={2}
          />

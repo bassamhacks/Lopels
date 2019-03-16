@@ -1,10 +1,40 @@
 import React, { Component } from 'react';
-import { Text,Image,StatusBar} from 'react-native';
+import { Text,Image,StatusBar,Alert} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import { Container, Header, Left, Title, Body, Right,Button,Icon, Content,Item,Input} from 'native-base';
+import { Button, Content,Item,Input} from 'native-base';
 import { robotoWeights} from 'react-native-typography';
-import { Col, Row, Grid } from 'react-native-easy-grid';
+import { Row, Grid } from 'react-native-easy-grid';
+import * as myConstants from '../../Constants';
 export default class Login extends Component {
+
+  state={
+    mobile: null,
+    pin: null,
+    access: null,
+  }
+
+  login = () => {
+    myConstants.mobile=this.state.mobile;
+    return fetch('http://gitzberry.com/kkk/userdetails.php?mobileno='+this.state.mobile+'&pin='+this.state.pin)
+      .then((response) => response.json())
+      .then((response) => {
+          this.setState({access: response.access});
+          myConstants.id=response.id;
+            this.checkAccess();
+        
+      })
+      .catch((error) =>{
+        console.error(error);
+      });
+  }
+ checkAccess() {
+     if(this.state.access=='G'){
+           //myConstants.mobile=this.state.mobile;
+         this.props.navigation.navigate('Home');
+     }else{
+        Alert.alert('Access Denied', 'Invalid Username or password');
+     }
+ }
   render() {
     return (
         
@@ -25,20 +55,20 @@ export default class Login extends Component {
                 <Row style={{height: '40%' }}>
                 <Content>
                 <Item rounded style={{marginTop:80}}>
-            <Input placeholder='Username' style={robotoWeights.thin} placeholderTextColor="#FFFFFF"
-                        onChangeText={username => this.setState({username})}/>
+            <Input placeholder='Phone' style={[robotoWeights.thin,{color:'#FFFFFF'}]} placeholderTextColor="#FFFFFF"
+                        onChangeText={mobile => this.setState({mobile})}/>
             </Item>
             <Item rounded style={{marginTop:10}}>
-            <Input placeholder='Password' placeholderTextColor="#FFFFFF" style={robotoWeights.thin}
+            <Input placeholder='Lopels Pin' placeholderTextColor="#FFFFFF" style={[robotoWeights.thin,{color:'#FFFFFF'}]}
             secureTextEntry={true}
-            onChangeText={password => this.setState({password})}
+            onChangeText={pin => this.setState({pin})}
             onSubmitEditing={this.login}/>
             </Item>
             </Content>
                 </Row>
                 <Row style={{ height: '30%' }}>
                 <Content>
-                <Button rounded light style={{alignSelf:'center', width:'50%'}} onPress={() => this.props.navigation.navigate("Home")}>
+                <Button rounded light style={{alignSelf:'center', width:'50%'}} onPress={this.login}>
             <Text style={[robotoWeights.condensedBold,{marginLeft:'50%'}]}>Login</Text>
           </Button>
           </Content>

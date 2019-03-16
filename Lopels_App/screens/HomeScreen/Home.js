@@ -12,6 +12,7 @@ import Shops from '../Shops';
 import Wallet from '../Wallet';
 import MyQR from '../MyQR';
 import QRScanner from '../QRScanner';
+import MyConstants from '../../Constants';
 const datacarousel = [
   {
       "id": 339964,
@@ -32,7 +33,10 @@ const datacarousel = [
 ];
 
 export default class Home extends Component {
+
+  
   render() {
+    
     return (
       <Container>
     
@@ -59,7 +63,7 @@ export default class Home extends Component {
             </Row>
             <Row style={{ height: '62%' }}>
             <Tabs >
-          <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>Shops </Text><Icon name="cart" /></TabHeading>} >
+          <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>Shops</Text><Icon name="cart" /></TabHeading>} >
             <Shops />
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>My Wallet </Text><Icon name="folder-open" /></TabHeading>}>
