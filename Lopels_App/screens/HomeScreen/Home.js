@@ -11,8 +11,8 @@ import seematti from '../../assets/seematti.jpg';
 import Shops from '../Shops';
 import Wallet from '../Wallet';
 import MyQR from '../MyQR';
-import QRScanner from '../QRScanner';
-import MyConstants from '../../Constants';
+import * as MyConstants from '../../Constants';
+import QRCodeScanner from 'react-native-qrcode-scanner';
 const datacarousel = [
   {
       "id": 339964,
@@ -33,7 +33,10 @@ const datacarousel = [
 ];
 
 export default class Home extends Component {
-
+  onSuccess (e) {
+    MyConstants.sid=e.data;
+    this.props.navigation.navigate('Redeem');
+  }
   
   render() {
     
@@ -73,7 +76,9 @@ export default class Home extends Component {
             <MyQR />
           </Tab>
           <Tab heading={ <TabHeading style={{backgroundColor: '#0f0c29'}}><Text style={[robotoWeights.thin,{color:'#FFFFFF'}]}>Scan QR</Text><Icon name="qr-scanner" /></TabHeading>}>
-            <QRScanner />
+          <QRCodeScanner
+        onRead={this.onSuccess.bind(this)}
+        />
           </Tab>
         </Tabs>
             </Row>
